@@ -7,10 +7,10 @@ public class Trou{
 	private int idTrou; 
 	private boolean occupied;
 	private Boule boule;
-	public Trou[] voisinage=new Trou[6];          
-	private int poid;                             
-	private boolean bord;                         
-	private Point PositionTrou;							
+	public Trou[] voisinage=new Trou[6];          //6 directions permises pour le deplacement d'un pion
+	private int poid;                             //Un poids qui permettra d'evaluer un coup par rapport e un autre
+	private boolean bord;                         //pour savoir s'il s'agit d'une cellule bord de l'hexagone
+	private Point PositionTrou;							//coordonnee du trou
 
 	public Trou(boolean a)
 	{
@@ -39,11 +39,11 @@ public class Trou{
 
 	}
 	
-	public boolean getOccupied()                
+	public boolean getOccupied()                //but:savoir si le trou est occupe ou pas
 	{
 		return occupied;
 	}
-	public void setOccupied(boolean a)                
+	public void setOccupied(boolean a)                //but:changer le statu du trou avec ue valeur
 	{
 		occupied=a;
 	}
@@ -53,7 +53,7 @@ public class Trou{
 	{
 		this.voisinage = voisinage;
 	}
-	public boolean getBord() {             
+	public boolean getBord() {             //on veut savoir si le trou est un bord ou pas
 		return bord;
 	}
 	public void setBord(boolean bord) {
@@ -89,6 +89,10 @@ public class Trou{
 	public void setPositionTrou(Point positionTrou) {
 		PositionTrou = positionTrou;
 	}
+	public Trou[] getVoisinage() {
+		return voisinage;
+	}
+	
 	
 	public Point getPosition() {
 		return PositionTrou;
