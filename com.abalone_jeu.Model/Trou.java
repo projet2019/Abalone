@@ -18,6 +18,26 @@ public class Trou{
 		bord=a;
 		
 	}
+	public Trou()
+	{
+		idTrou=num;
+		num++;
+		occupied=false;
+	}
+	public Boule getBoule()
+	{
+		return boule;
+	}
+	public void setBoule(Boule b)
+	{
+		if(b!=null)
+			{
+				this.setOccupied(true);
+			}
+		if(bord==false)
+		boule=b;
+
+	}
 	
 	public boolean getOccupied()                
 	{
