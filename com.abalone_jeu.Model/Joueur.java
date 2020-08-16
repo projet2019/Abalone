@@ -3,7 +3,7 @@ package com.abalone_jeu.Model;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
-
+import java.util.Random;
 
 public class Joueur {
 	private static int cpteur=0;
@@ -22,9 +22,6 @@ public class Joueur {
 	private int fP=-20;		//profondeur coups en fleche
 	private int dF=-20; 	//direction ds voisin pr le deplacement en fleche
   
-	//public static ArrayList<Point> boulePos=new ArrayList<Point>();
-	
-	            //le numero du joueur associ au pion depose dans celle-ci.cet attribu est utile pr le trou
 	
 
 	public Boule locate(int id)
@@ -48,6 +45,84 @@ public class Joueur {
 		return null;
 	}
 
+	public boolean select(int id)//on ajoute le pion id dans la liste des pion selectionne si existe deja on l'a sort
+	{
+		//System.out.println(id);
+		if(locate(id)!=null && tableDjeu.nbSelect==0)
+		{
+			if(tableDjeu.pion.contains(locate(id))) //si elle existe deja on l'a sort
+				{	
+							//System.out.println("ote");
+							tableDjeu.pion.remove(locate(id));
+							tableDjeu.nbSelect--;
+							tableDjeu.NotifyObserver(false, id);
+							return true;
+				}
+			else		//sinon on l'ajoute
+				{
+					//System.out.println("ajoute");
+					tableDjeu.pion.add(locate(id));
+					tableDjeu.nbSelect++;
+					tableDjeu.NotifyObserver(true, id);
+					return true;
+				}
+		}
+			
+		//s'il y'a deja une boule et qu'on veut en selectione pour le deplacement laterale
+		else if(locate(id)!=null && (tableDjeu.nbSelect>0 && tableDjeu.nbSelect<3) )
+		{
+			if(tableDjeu.pion.contains(locate(id)))
+			{	
+						//System.out.println("ote");
+						tableDjeu.pion.remove(locate(id));
+						tableDjeu.nbSelect--;
+						tableDjeu.NotifyObserver(false, id);
+						return true;
+			}
+			else
+			{
+				//on ajoute et on verifie l'alignement
+				tableDjeu.pion.add(locate(id));
+				tableDjeu.nbSelect++;
+				if(!alignement())
+				{
+					tableDjeu.pion.remove(locate(id));
+					tableDjeu.nbSelect--;
+					//System.out.println("les boules ne sont pas aligne ou ne sont pas du meme joueur");
+					return false;
+				}
+				else
+				{
+					tableDjeu.NotifyObserver(true, id);
+					
+					//System.out.println("les boules st alignes");
+					return true;
+				}
+				
+			}
+			
+				
+		}
+		else if(tableDjeu.nbSelect==3)
+		{
+			if(tableDjeu.pion.contains(locate(id)))
+			{	
+						//System.out.println("ote");
+						tableDjeu.pion.remove(locate(id));
+						tableDjeu.nbSelect--;
+						tableDjeu.NotifyObserver(false, id);
+						return true;
+			}
+			else
+			{
+				//System.out.println("nombre max de boule atteint");
+				return false;
+				
+			}
+		}
+		return false;
+			
+	}
 	
 	public Joueur getAdversaire() {
 		return adversaire;
@@ -91,12 +166,7 @@ public class Joueur {
     	}
     }
     
-//	public void getDirectionCLIC(int source)
-//	{
-//		Boule a=locate
-//	}
-   
-    
+
    
     
     public void setNBout(int n)
@@ -189,6 +259,93 @@ public class Joueur {
     			pion.setTrou(retour);
     		}
     		
+    		
+   public void meilleurCoups(int level)
+   {
+	   int ALPHA = -(Integer.MAX_VALUE);
+	    int BETA = Integer.MAX_VALUE;
+
+	   int meilleurEval=ALPHA;
+	   int evalCoups;
+	   ArrayList<Boule> coups=new ArrayList<Boule>();
+	   ArrayList<Point> depCordonee=new ArrayList<Point>(); 
+	   for(int i=0;i<this.mesBoules.length;i++)
+		   for(int j=0;j<this.mesBoules[i].length;j++)
+			   if(this.mesBoules[i][j].getEtat()==false)
+				   for(int direction=0;direction<6;direction++)
+					   if(tableDjeu.regle.getDeplacement(this.mesBoules[i][j].getTrou(), direction)!=-20)
+					   {
+						   int tD=tableDjeu.regle.getDeplacement(this.mesBoules[i][j].getTrou(), direction);
+						   if(tD==-7 || tD==-8 || tD==-9 || tD==-4 || tD==-5 || tD==-6)
+						   {
+							   bD=direction;
+							   bTD=tD;
+							   bP=this.mesBoules[i][j];
+							   return;
+						   }
+
+						 
+						   
+							   Trou depart=this.mesBoules[i][j].getTrou();
+							   tableDjeu.joue(this.mesBoules[i][j], direction, tD);
+							   evalCoups=minValue(this.getAdversaire(),ALPHA,BETA,(level-1));
+							   tableDjeu.Dejoue(depart, direction, tD);
+			
+							   if(evalCoups>meilleurEval)
+							   {
+								   meilleurEval=evalCoups;
+								   coups=new ArrayList<Boule>();
+								   depCordonee=new ArrayList<Point>();
+								   coups.add(depart.getBoule());
+								   depCordonee.add(new Point(direction,tD));
+								  
+
+							   }
+							   else if(evalCoups==meilleurEval)
+							   {
+								   coups.add(depart.getBoule());
+								   depCordonee.add(new Point(direction,tD));
+		                        
+							   }
+
+							   
+						   
+					   }
+	   Random rnd =  new Random();
+	   int n=rnd.nextInt(coups.size());
+	   System.out.println(n);
+       bP= coups.get(n);
+       bTD=depCordonee.get(n).y;
+       bD=depCordonee.get(n).x;
+       if(bTD==-1)
+	   {
+		   int pF=-20;
+		  
+		for(int df=0;df<6 && df!=bD;df++)
+		   {
+				pF=tableDjeu.testFleche(bP.getTrou(), bD, df);
+				if(pF!=-20)
+				{
+					if(pF==2)
+					{
+							fP=2;
+							dF=df;
+							return;
+				
+					}
+					else
+					{
+						
+							fP=3;
+							dF=df;
+							return;
+					
+					}
+				}		   
+			}
+		
+	   }
+   }
    
    public int minValue(Joueur j1,int alpha,int beta,int profondeur)
    {
