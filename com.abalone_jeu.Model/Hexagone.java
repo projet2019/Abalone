@@ -16,7 +16,7 @@ public class Hexagone implements Observable {
 	private Boule [][] bouleJoueur1=new Boule[3][];
 	private Boule [][] bouleJoueur2=new Boule[3][];
 	private boolean partieEnd=false;                  //c.a.d si la partie est fini ou pas
-	private Trou[][] toute=new Trou[11][];             //11ligne 19colonne
+	private Trou[][] toute=new Trou[11][];             //11 ligne 19 colonne
 	public Coups regle;                                   //les règle du jeu
 	private Point [][] T = 
 		{
@@ -34,7 +34,10 @@ public class Hexagone implements Observable {
 		};
 	
 	
-
+/**
+ * cette methode definie les regles au debut d'une partie
+ * @param r
+ */
 	public Hexagone(Coups r)
 	{
 		
@@ -42,7 +45,9 @@ public class Hexagone implements Observable {
 		init();
 		
 	}
-	
+	/**
+	 * cette methode initiale les differents acteurs d'une nouvelle partie donc les trou, poids, les boules des joueurs
+	 */
 	public void init()
 	{
 		initTrou();
@@ -52,7 +57,9 @@ public class Hexagone implements Observable {
 		initBoulej1j2();
 		initBoule();
 	}
-	
+	/**
+	 * elle initiale une partie sur la table
+	 */
 	public void nouvellePartie()
 	{
 		for(Boule [] a:bouleJoueur1)
@@ -99,6 +106,9 @@ public class Hexagone implements Observable {
 	}
 	
 	//creer les trou
+	/**
+	 * cette methode creee les differents trous
+	 */
 	public void initTrou()
 	{
 		toute[0]=new Trou[6];
@@ -177,7 +187,10 @@ public class Hexagone implements Observable {
 		
 	}
 
-	//initialise le voisinage des trou
+	
+	/**
+	 * cette initialise le voisinage des boules 
+	 */
 	public void initVoisinage()
 	{
 		for(int k=1;k<toute.length-1;k++)
@@ -225,7 +238,9 @@ public class Hexagone implements Observable {
 		}
 	}
 	
-	//initialise le poids de chaque trou
+	/**
+	 * initilae le poids de chaque trou
+	 */
 	public void initPoids()
 	{
 		int N=100;
@@ -313,7 +328,13 @@ public class Hexagone implements Observable {
 			}
 	
 	
-	 //permet a l'IA de jouer un coup 
+	 
+	/**
+	 * cette methode permt à l'IA de jouer un coup
+	 * @param b
+	 * @param direction
+	 * @param nTypeDeplacement
+	 */
 	public void joue(Boule b,int direction,int nTypeDeplacement)                               
 	{
 		
@@ -333,7 +354,13 @@ public class Hexagone implements Observable {
 		
 	}
 	
-	//back-tracking annule joue()
+	
+	/**
+	 * cette methode permet d'annuler joue() , back-tracking
+	 * @param pintPion
+	 * @param nDirection
+	 * @param nTypeDeplacement
+	 */
 	 public void Dejoue (Trou pintPion,int nDirection,int nTypeDeplacement)           
 	 {
 	    	switch(nTypeDeplacement)
@@ -350,7 +377,12 @@ public class Hexagone implements Observable {
 	    	}
 
 	 }
-	 
+	 /**
+	  * cette methode deplace les pion d'un point à un autre en tenant compte des regles
+	  * @param dep
+	  * @param nbPion
+	  * @param direction
+	  */
 	 
 	 public void deplaceNPion(Trou dep,int nbPion,int direction)
 	 {
@@ -365,7 +397,12 @@ public class Hexagone implements Observable {
 	 
 	
 	 
-	//permet d'evaluer un coup par raport a l'ensbl du jeu pour l'IA
+	//
+	 /**
+	  * cette methode  permet d'evaluer un coup par raport a l'ensemble du jeu pour l'IA
+	  * @param IA
+	  * @return
+	  */
 	 public int fctEval(Joueur IA)                
 		{
 			IA.calculPoidJoueurs();
@@ -407,13 +444,20 @@ public class Hexagone implements Observable {
 				NotifyObserver("play","pause",joueurs[0].getNBout(),joueurs[1].getNBout());
 			}
 	}
-	
+	/**
+	 * creer un tableau de boule pour j1
+	 * @return bouleJouer1
+	 */
 	public Boule [][] BouleJoueur1() {
 		return bouleJoueur1;
 	}
 	public void setBouleJoueur1(Boule [][] bouleJoueur1) {
 		this.bouleJoueur1 = bouleJoueur1;
 	}
+	/**
+	 *creer un tableau de boule pour j2
+	 * @return bouleJouer2
+	 */
 	public Boule [][] bouleJoueur2() {
 		return bouleJoueur2;
 	}
