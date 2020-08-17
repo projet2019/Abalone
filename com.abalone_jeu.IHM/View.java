@@ -179,10 +179,10 @@ private RoundButton [] j2={new RoundButton("/com/abalone_jeu/Ressource/boule_b.p
 		mntmRgles.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String loi;
-        		loi = "\nLe jeu Consiste a  faire sortir six boules adverses hors du plateau de jeu\n" +
+        		loi = "\nLe jeu Consiste ae faire sortir six boules adverses hors du plateau de jeu\n" +
 		        "\t\tLe joueur qui a les boules bleues commencent.\n" +
 		         "A chaque tour de jeu, il faut deplacer une ranger d'une, deux ou trois boules.\n" +
-		          "Les boules adverses sont repoussées ou avalées (hors du plateau) dans les cas qui suivent :\n" +
+		          "Les boules adverses sont repoussees ou avalees (hors du plateau) dans les cas qui suivent :\n" +
 		           "\t\t\t - 3 contre 2,\n\t\t\t - 3 contre 1,\n\t\t\t - 2 contre 1.\n                      Bonne Partie !" ;
         		JOptionPane.showMessageDialog(null, loi);
 			}
@@ -194,10 +194,10 @@ private RoundButton [] j2={new RoundButton("/com/abalone_jeu/Ressource/boule_b.p
 		mntmAPropos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String pfe;
-        		pfe = "\t\t\tFaculté de Sciences de Kenitra (FSK)\n" +
-		               "\n\tProjet élaboré par Yoni Philippe.\n" +
+        		pfe = "\t\t\tEPHEC\n" +
+		               "\n\tProjet elabore par joel Yepgang.\n" +
 		                "Contact \n " +
-		                 "Mail: yoniphilippe@gmail.fr \n Numéro: +212606255759 ou +22670081172\n\tVersion 1.0";
+		                 "Mail: joelcyn@yahoo.be";
         		JOptionPane.showMessageDialog(null, pfe);
 				
 			}
@@ -210,26 +210,26 @@ private RoundButton [] j2={new RoundButton("/com/abalone_jeu/Ressource/boule_b.p
 				String pfe;
         		pfe = "\t\t\t Instruction du Jeu Abalone\n\n\t" +
 		               "1-Lancer une nouvelle Partie dans le menu jeu\n\t" +
-		                "2-Le qui possède les boules du bas commmence\n\t" +
+		                "2-Le qui possede les boules du bas commmence\n\t" +
 		                "3-Pour jouer contre l'IA(la machine) choisissez son niveau dans le menu Humain vs Machine\n\t"+
-		                  "4-Vous etes désormais pret a jouer"+
+		                  "4-Vous etes desormais pret a jouer"+
 		                  "\n\n\t\t\t\t\t\t\t\t\t\t LES TYPES DE DEPLACEMENT"+
-		                   "\n\n\t Déplacement latérale: Selectionner a la suite les billes consernées par le déplacement"+
-		                     "\n\t Déplacement en flèche: Selectionner seulement la bille qui poussera les autres\n"+
+		                   "\n\n\t Deplacement laterale: Selectionner a la suite les billes consernees par le deplacement"+
+		                     "\n\t Deplacement en fleche: Selectionner seulement la bille qui poussera les autres\n"+
 		                     
 		                     "\n\n\t\t\t\t\t\t\t\t\t\t TOUCHE DE DEPLACEMENT"+
-		                     "\n\n\t\t déplacer a droite: touche (6) du clavier numérique  \n"+
+		                     "\n\n\t\t deplacer a droite: touche (6) du clavier numerique  \n"+
 		  
-		                     "\t\t déplacer a gauche: touche  (4) du clavier numérique\n"+
-        						"\t\t déplacer en haut a gauche: touche (7) du clavier numérique \n"+
-        						"\t\t déplacer en haut a droite: touche (9) du clavier numérique \n"+
-        						"\t\t déplacer en bas a gauche: touche (1) du clavier numérique \n"+
-        						"\t\t déplacer en haut a gauche: touche (3) du clavier numérique \n"+
+		                     "\t\t deplacer a gauche: touche  (4) du clavier numerique\n"+
+        						"\t\t deplacer en haut a gauche: touche (7) du clavier numerique \n"+
+        						"\t\t deplacer en haut a droite: touche (9) du clavier numerique \n"+
+        						"\t\t deplacer en bas a gauche: touche (1) du clavier numerique \n"+
+        						"\t\t deplacer en haut a gauche: touche (3) du clavier numerique \n"+
         				
         						  "\n\n\t\t\t\t\t\t\t\t\t\t TOUCHE DE LA SOURIS"+
         						  "\n\n\t\t Clic Gauche:Selectionne une bille  \n"+
-        						  "\t\t Clic Droit:Déselectionne toute les billes selectionné \n"+
-        						  "\n\n\n \t\t\t NB:selectionner la bille avant de tenter le déplacement";
+        						  "\t\t Clic Droit:Deselectionne toute les billes selectionne \n"+
+        						  "\n\n\n \t\t\t NB:selectionner la bille avant de tenter le deplacement";
         		JOptionPane.showMessageDialog(null, pfe);
 				
 			}
@@ -444,6 +444,8 @@ public int test()
 	}
 
 	
+	
+
 
 	@Override
 	public void update(String a,String b,int a1,int b1) {
