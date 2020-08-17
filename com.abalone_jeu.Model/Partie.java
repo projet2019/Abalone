@@ -7,6 +7,9 @@ public class Partie {
 	public  Joueur j1;
 	public  Joueur j2;
 	
+	/**
+	 * cette methode creer une nouvelle partie voir tableau de duel
+	 */
 	public Partie()
 	{
 		table=new Hexagone(new Coups());
