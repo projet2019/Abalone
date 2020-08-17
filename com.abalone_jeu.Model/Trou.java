@@ -18,6 +18,9 @@ public class Trou{
 		bord=a;
 		
 	}
+	/**
+	 * verifie si le trou est occupé
+	 */
 	public Trou()
 	{
 		idTrou=num;
@@ -84,7 +87,7 @@ public class Trou{
 		return PositionTrou;
 	}
 	/**
-	 * @param positionTrou 
+	 * @param positionTrou le positionTrou e definir
 	 */
 	public void setPositionTrou(Point positionTrou) {
 		PositionTrou = positionTrou;
