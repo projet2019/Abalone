@@ -12,6 +12,11 @@ public class Boule{
 	private int idBoule;
 	private Point PositionBoule;
 	
+	/**
+	 * cette methode permet d'affecter des identifiant aux booules
+	 * @param a
+	 */
+	
 	public Boule(Trou a)
 	{
 		idBoule=cpteur;
@@ -21,6 +26,7 @@ public class Boule{
 		PositionBoule=a.getPosition();
 		trou.setBoule(this);
 	}
+	
     public boolean getEtat()    
     {
 		return sortie;
@@ -31,8 +37,11 @@ public class Boule{
     {
 		sortie=j;
 	}
-    
-    public void modifyEtat()           //test si le trou dan lekel on se trouve est un bord
+     
+    /**
+     * cette methode permet de verifier si le trou dans lequel on est , est un bord
+     */
+    public void modifyEtat()           
     {
 		if(trou.getBord())  
 			{
@@ -44,7 +53,7 @@ public class Boule{
 			this.setPosition(trou.getPosition());
 			}
 			joueur.getTable().modifyState();
-			
+			joueur.getTable().NotifyObserver(joueur.getTable().getState(),getEtat(), getPosition(), getIdBoule());
 	}
     
    
@@ -54,7 +63,7 @@ public class Boule{
     {     
     			
     			trou.setOccupied(false);
-    			//trou.setBoule(null);		//on prévient aux troux dans lequel il était qu'il n'est plus occupé
+    			//trou.setBoule(null);		//on previent aux trou dans lequel il etait qu'il n'est plus occupe
     			
 	    		trou=a;
 	    		trou.setBoule(this);
@@ -103,6 +112,16 @@ public class Boule{
 	
 	public void setPosition(Point position) {
 		PositionBoule = position;
+	}
+	public static int getCpteur() {
+		return cpteur;
+	}
+	public static void setCpteur(int cpteur) {
+		Boule.cpteur = cpteur;
+	}
+    
+}
+
 	}
 	public static int getCpteur() {
 		return cpteur;
