@@ -174,6 +174,11 @@ public class Controle implements KeyListener,MouseListener,ActionListener {
 			{
 				a.table.setNbSelect(0);
 
+			}
+			
+		}
+		
+
 
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
@@ -336,7 +341,52 @@ public class Controle implements KeyListener,MouseListener,ActionListener {
 		}
 		
 		
-		
+		public void save()
+		{
+			int i=0;
+			if(a.table.getTour().equals(a.j1))
+			{
+				jou1[0]=5;
+				if(a.j2.isIaJoueur())
+				jou1[1]=a.j2.getNiveau();
+				else
+				jou1[1]=-1;
+			}
+			else
+			{
+				if(a.j2.isIaJoueur())
+				{
+					jou1[1]=a.j2.getNiveau();
+				}
+				else
+				{
+					jou1[1]=5;
+				}
+				jou1[0]=-1;
+				
+			}
+			
+			for(Boule [] c : a.table.BouleJoueur1())
+			{
+				for(Boule d : c)
+				{
+					j1[i][0]=d.getIdBoule();
+					j1[i][1]=d.getTrou().getIdTrou();
+					i++;
+				}
+			}
+			i=0;
+			for(Boule [] c : a.table.bouleJoueur2())
+			{
+				for(Boule d : c)
+				{
+					j2[i][0]=d.getIdBoule();
+					j2[i][1]=d.getTrou().getIdTrou();
+					i++;
+				}
+			}
+			write_Fichier(j1,j2,jou1,"fich.txt");
+		}
 		
 		public void load()
 		{
@@ -396,7 +446,63 @@ public class Controle implements KeyListener,MouseListener,ActionListener {
 		
 		
 		
+		public void write_Fichier(int [][] joueur_1, int [][] joueur_2, int [] j_1, String nomFichier){
+			File f= null;  //Pour la premiere ecriture si le fichier n'existe pas cette ligne permet de le creer sinon elle ecrit
+			                                   //directement dans le fichier
+			 
+			try
+			{
+				f= new File(nomFichier);
+			    PrintWriter ecrire = new PrintWriter (new BufferedWriter (new FileWriter (f)));
+			        ecrire.println(j_1[0]);
+			    for(int i=0; i<joueur_1.length; i++)
+			    {
+			        ecrire.println (joueur_1[i][0]);
+			        ecrire.println (joueur_1[i][1]);
+			    }
+			        ecrire.println(j_1[1]);
+			   for(int i=0; i<joueur_2.length; i++)
+				{
+					   ecrire.println(joueur_2[i][0]);
+					   ecrire.println(joueur_2[i][1]);
+				}
+			    ecrire.close();
+			}
+			catch (IOException  exception)
+			{
+			    System.out.println ("Erreur lors de la lecture : " + exception.getMessage());
+			}
+		}
 		
-		
-		
+		public void read_Fichier(int [][] joueur_1, int [][] joueur_2, int [] j_1, String nomFichier) {
+			//lecture du fichier texte	
+			InputStream fich=null;
+			try{
+				fich=new FileInputStream(nomFichier); 
+				InputStreamReader fichiLu=new InputStreamReader(fich);
+				BufferedReader br=new BufferedReader(fichiLu);
+				
+				j_1[0]=Integer.parseInt(br.readLine());
+				 
+				for(int i1=0; i1<joueur_1.length; i1++)
+				{
+					joueur_1[i1][0] = Integer.parseInt(br.readLine());
+					joueur_1[i1][1]=Integer.parseInt(br.readLine());
+				}
+				
+				 j_1[1]=Integer.parseInt(br.readLine());
+				
+				for(int i1=0; i1<joueur_2.length; i1++)
+				{
+					joueur_2[i1][0] = Integer.parseInt(br.readLine());
+					joueur_2[i1][1]=Integer.parseInt(br.readLine());
+				}
+				br.close(); 
+			}	
+			    catch (IOException exception)
+			    {
+			        System.out.println ("Erreur lors de la lecture : " + exception.getMessage());
+			    }
+
+		}
 }
